@@ -139,7 +139,7 @@ export default function FarismanagementSite() {
       <section className="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gray-100 text-sm mb-6">
-            Austin, TX • Premium Rentals
+            Austin, TX • Live Vercel Preview
           </div>
           <h1 className="text-6xl md:text-7xl font-semibold tracking-tighter leading-none mb-6">
             Thoughtfully<br />managed homes.
