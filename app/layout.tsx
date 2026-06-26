@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { company, featuredProperty, propertyLabel } from "../lib/property";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,12 +17,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faris Management | Saint Louis Rental Properties",
-  description:
-    "Locally owned Saint Louis property management. View available rentals and express interest in 930 Bellestri.",
+  title: `${company.name} | ${featuredProperty.address} Rental`,
+  description: `Rent ${propertyLabel}. ${featuredProperty.bedrooms} bed, ${featuredProperty.bathrooms} bath, ${featuredProperty.sqft.toLocaleString()} sq ft. Contact ${company.name}.`,
   openGraph: {
-    title: "Faris Management",
-    description: "Quality rental homes in Saint Louis, Missouri.",
+    title: `${company.name} — ${featuredProperty.address}`,
+    description: company.tagline,
     locale: "en_US",
     type: "website",
   },
