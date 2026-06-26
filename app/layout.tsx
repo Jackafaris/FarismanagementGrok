@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Toaster } from "sonner";
 
@@ -14,10 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Farismanagement | Premium Rental Properties",
-  description: "Thoughtfully managed premium rental homes. View our available properties and express interest in 930 Bellestri and 1008 Dorne Dr.",
-  icons: {
-    icon: "/favicon.ico",
+  title: "Faris Management | Saint Louis Rental Properties",
+  description:
+    "Locally owned Saint Louis property management. View available rentals and express interest in 930 Bellestri.",
+  openGraph: {
+    title: "Faris Management",
+    description: "Quality rental homes in Saint Louis, Missouri.",
+    locale: "en_US",
+    type: "website",
   },
 };
 
@@ -34,6 +40,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-black">
         {children}
         <Toaster position="top-center" richColors closeButton />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

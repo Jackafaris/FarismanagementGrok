@@ -15,36 +15,52 @@ export async function sendInterestEmail(formData: FormData) {
     return { success: false, error: "Please fill out all required fields." };
   }
 
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    return {
+      success: false,
+      error: "Email is not configured yet. Please email shirinefaris@gmail.com directly.",
+    };
+  }
+
   try {
-    const { data, error } = await resend.emails.send({
-      from: "Farismanagement <onboarding@resend.dev>", // Works for testing. For production, verify your domain at resend.com/domains
+    const { error } = await resend.emails.send({
+      from: "Faris Management <onboarding@resend.dev>",
       to: ["shirinefaris@gmail.com"],
-      subject: `Interest in ${interestedProperty} - ${name}`,
+      replyTo: email,
+      subject: `Rental inquiry: ${interestedProperty} — ${name}`,
       html: `
         <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
-          <h1 style="font-size: 24px; margin-bottom: 24px; color: #000;">New Property Interest</h1>
+          <h1 style="font-size: 24px; margin-bottom: 24px; color: #000;">New Rental Inquiry</h1>
           
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
-          <p><strong>Interested In:</strong> ${interestedProperty}</p>
+          <p><strong>Property:</strong> ${interestedProperty}</p>
           
-          ${message ? `
+          ${
+            message
+              ? `
             <div style="margin-top: 16px;">
               <strong>Message:</strong>
               <p style="white-space: pre-wrap; background: #f5f5f5; padding: 16px; border-radius: 6px; margin-top: 8px;">${message}</p>
             </div>
-          ` : ""}
+          `
+              : ""
+          }
           
           <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;" />
-          <p style="color: #666; font-size: 14px;">Sent from the Farismanagement website.</p>
+          <p style="color: #666; font-size: 14px;">Sent from the Faris Management website.</p>
         </div>
       `,
     });
 
     if (error) {
       console.error("Resend error:", error);
-      return { success: false, error: "Failed to send inquiry. Please try again or email us directly." };
+      return {
+        success: false,
+        error: "Failed to send inquiry. Please try again or email shirinefaris@gmail.com directly.",
+      };
     }
 
     return { success: true };
