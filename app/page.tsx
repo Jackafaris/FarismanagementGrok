@@ -141,27 +141,29 @@ export default function FarisManagementSite() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("phone", formData.phone);
-    data.append("interestedProperty", formData.interestedProperty);
-    data.append("message", formData.message);
+    try {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("interestedProperty", formData.interestedProperty);
+      data.append("message", formData.message);
 
-    const result = await sendInterestEmail(data);
+      const result = await sendInterestEmail(data);
 
-    if (result.success) {
-      toast.success("Thank you! Your inquiry has been sent.", {
-        description: `${company.name} will be in touch soon.`,
-      });
-      closeModal();
-    } else {
-      toast.error(result.error || "Something went wrong. Please try again.", {
-        description: `You can also email ${company.email} or call ${company.phone}.`,
-      });
+      if (result.success) {
+        toast.success("Thank you! Your inquiry has been sent.", {
+          description: `${company.name} will be in touch soon.`,
+        });
+        closeModal();
+      } else {
+        toast.error(result.error || "Something went wrong. Please try again.", {
+          description: `You can also email ${company.email} or call ${company.phone}.`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (

@@ -24,8 +24,12 @@ export async function sendInterestEmail(formData: FormData) {
   }
 
   try {
+    const fromAddress =
+      process.env.RESEND_FROM_EMAIL ??
+      "Faris Management <inquiries@farismanagementllc.com>";
+
     const { error } = await resend.emails.send({
-      from: "Faris Management <onboarding@resend.dev>",
+      from: fromAddress,
       to: ["shirinefaris@gmail.com"],
       replyTo: email,
       subject: `Rental inquiry: ${interestedProperty} — ${name}`,
