@@ -250,8 +250,8 @@ export default function FarisManagementSite() {
           <div className="relative">
             <div className="overflow-hidden rounded-[28px] border border-black/5 shadow-[0_24px_80px_rgba(0,0,0,0.08)]">
               <Image
-                src={featuredProperty.images[0]}
-                alt={`${featuredProperty.address} exterior`}
+                src={featuredProperty.images[0].src}
+                alt={featuredProperty.images[0].alt}
                 width={1200}
                 height={1500}
                 className="aspect-[4/5] w-full object-cover"
@@ -300,24 +300,28 @@ export default function FarisManagementSite() {
           <div>
             <div className="overflow-hidden rounded-3xl border border-black/5 bg-white">
               <Image
-                src={featuredProperty.images[activeImage]}
-                alt={`${featuredProperty.address} photo ${activeImage + 1}`}
+                src={featuredProperty.images[activeImage].src}
+                alt={featuredProperty.images[activeImage].alt}
                 width={1600}
                 height={1000}
                 className="aspect-[16/10] w-full object-cover"
               />
+              <p className="border-t border-black/5 px-4 py-3 text-sm text-neutral-600">
+                {featuredProperty.images[activeImage].alt}
+              </p>
               <div className="flex gap-3 overflow-x-auto border-t border-black/5 p-4">
                 {featuredProperty.images.map((image, index) => (
                   <button
-                    key={image}
+                    key={image.src}
                     onClick={() => setActiveImage(index)}
+                    aria-label={`Show photo ${index + 1}: ${image.alt}`}
                     className={`shrink-0 overflow-hidden rounded-xl border-2 transition ${
                       activeImage === index ? "border-black" : "border-transparent opacity-70"
                     }`}
                   >
                     <Image
-                      src={image}
-                      alt=""
+                      src={image.src}
+                      alt={image.alt}
                       width={160}
                       height={112}
                       className="h-16 w-24 object-cover"
